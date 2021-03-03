@@ -12,7 +12,11 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducers.js';
-import { orderCreateReducer } from './reducers/orderReducers';
+import {
+  orderDetailsReducer,
+  orderCreateReducer,
+  orderPayReducer,
+} from './reducers/orderReducers';
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -39,7 +43,9 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  orderDetails: orderDetailsReducer,
   orderCreate: orderCreateReducer,
+  orderPay: orderPayReducer,
 });
 
 const store = createStore(

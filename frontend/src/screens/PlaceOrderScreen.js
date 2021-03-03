@@ -60,6 +60,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <strong>Address: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode}
+                {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
 
@@ -71,7 +72,7 @@ const PlaceOrderScreen = ({ history }) => {
 
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {cart.cartItems.length === 0 ? (
+              {!cart.cartItems || cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
                 cart.cartItems.map((item, index) => (
