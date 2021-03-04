@@ -10,10 +10,12 @@ import {
   USER_DETAIL_REQUEST,
   USER_DETAIL_SUCCESS,
   USER_DETAIL_FAIL,
+  USER_DETAIL_RESET,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
 } from '../constants/userConstants';
+import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -49,6 +51,8 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: USER_DETAIL_RESET });
+  dispatch({ type: ORDER_LIST_MY_RESET });
 };
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -119,7 +123,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-    console.log('userInfo', userInfo);
 
     const config = {
       headers: {

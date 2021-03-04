@@ -10,6 +10,9 @@ import {
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_RESET,
+  ORDER_LIST_MY_REQUEST,
+  ORDER_LIST_MY_SUCCESS,
+  ORDER_LIST_MY_FAIL,
 } from '../constants/orderConstants';
 
 export const getOrderDetails = (orderId) => async (dispatch, getState) => {
@@ -19,7 +22,6 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-    console.log('userInfo', userInfo);
 
     const config = {
       headers: {
@@ -42,17 +44,13 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
   }
 };
 
-export const createOrder = (order, paymentResult) => async (
-  dispatch,
-  getState
-) => {
+export const createOrder = (order) => async (dispatch, getState) => {
   try {
-    dispatch({ type: ORDER_PAY_REQUEST });
+    dispatch({ type: ORDER_CREATE_REQUEST });
 
     const {
       userLogin: { userInfo },
     } = getState();
-    console.log('userInfo', userInfo);
 
     const config = {
       headers: {
@@ -61,14 +59,13 @@ export const createOrder = (order, paymentResult) => async (
       },
     };
 
-    console.log('order', order);
     const { data } = await axios.post(`/api/orders`, order, config);
 
-    dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
   } catch (err) {
     console.log('err', err);
     dispatch({
-      type: ORDER_PAY_FAIL,
+      type: ORDER_CREATE_FAIL,
       payload:
         err.response && err.response.data.message
           ? err.response.data.message
@@ -77,7 +74,7 @@ export const createOrder = (order, paymentResult) => async (
   }
 };
 
-export const orderPay = (orderId, paymentResult) => async (
+export const payOrder = (orderId, paymentResult) => async (
   dispatch,
   getState
 ) => {
@@ -87,7 +84,6 @@ export const orderPay = (orderId, paymentResult) => async (
     const {
       userLogin: { userInfo },
     } = getState();
-    console.log('userInfo', userInfo);
 
     const config = {
       headers: {
@@ -107,6 +103,36 @@ export const orderPay = (orderId, paymentResult) => async (
     console.log('err', err);
     dispatch({
       type: ORDER_DETAILS_FAIL,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    });
+  }
+};
+
+export const listMyOrder = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_LIST_MY_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/orders/myorders`, config);
+
+    dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data });
+  } catch (err) {
+    console.log('err', err);
+    dispatch({
+      type: ORDER_LIST_MY_FAIL,
       payload:
         err.response && err.response.data.message
           ? err.response.data.message

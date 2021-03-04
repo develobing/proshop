@@ -22,6 +22,18 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc    Get logged in user orders
+ * @route   GET /api/orders/myorders
+ * @access  Private
+ * @author  Robin
+ */
+const getMyOrders = asyncHandler(async (req, res) => {
+  console.log('req.user', req.user);
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
+
+/**
  * @desc    Create new order
  * @route   POST /api/orders
  * @access  Private
@@ -41,7 +53,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
   if (orderItems && orderItems.length == 0) {
     res.status(400);
     throw new Error('No order items');
-    return;
   } else {
     const order = new Order({
       orderItems,
@@ -88,4 +99,4 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-export { getOrderById, addOrderItems, updateOrderToPaid };
+export { getOrderById, getMyOrders, addOrderItems, updateOrderToPaid };
