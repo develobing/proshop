@@ -21,8 +21,10 @@ import { cartReducer } from './reducers/cartReducers.js';
 import {
   orderDetailsReducer,
   orderCreateReducer,
-  orderPayReducer,
+  orderListReducer,
   orderListMyReducer,
+  orderPayReducer,
+  orderDeliverReducer,
 } from './reducers/orderReducers';
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -58,8 +60,10 @@ const reducer = combineReducers({
   userUpdate: userUpdateReducer,
   orderDetails: orderDetailsReducer,
   orderCreate: orderCreateReducer,
-  orderPay: orderPayReducer,
+  orderList: orderListReducer,
   orderListMy: orderListMyReducer,
+  orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
 });
 
 const store = createStore(
