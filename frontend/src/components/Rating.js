@@ -22,7 +22,7 @@ const Rating = ({ value, text, color }) => {
           className={
             value >= 2
               ? 'fas fa-star'
-              : value >= 0.5
+              : value >= 1.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
@@ -35,7 +35,7 @@ const Rating = ({ value, text, color }) => {
           className={
             value >= 3
               ? 'fas fa-star'
-              : value >= 0.5
+              : value >= 2.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
@@ -48,7 +48,7 @@ const Rating = ({ value, text, color }) => {
           className={
             value >= 4
               ? 'fas fa-star'
-              : value >= 0.5
+              : value >= 3.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
@@ -61,7 +61,7 @@ const Rating = ({ value, text, color }) => {
           className={
             value >= 5
               ? 'fas fa-star'
-              : value >= 0.5
+              : value >= 4.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
