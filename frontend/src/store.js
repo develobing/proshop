@@ -12,6 +12,7 @@ import {
 } from './reducers/userReducers.js';
 import {
   productListReducer,
+  productTopRatedReducer,
   productDetailsReducer,
   productCreateReducer,
   productUpdateReducer,
@@ -47,6 +48,7 @@ const initialState = {
 const middlewares = [thunk];
 const reducer = combineReducers({
   productList: productListReducer,
+  productTopRated: productTopRatedReducer,
   productDetails: productDetailsReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,

@@ -29,6 +29,18 @@ const getProducts = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc    Get top rated products
+ * @route   GET /api/products/top
+ * @access  Public
+ * @author  Robin
+ */
+const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+  res.json({ products });
+});
+
+/**
  * @desc    Fetch single product
  * @route   GET /api/products/:id
  * @access  Public
@@ -124,7 +136,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 /**
  * @desc    Create new review
- * @route   PUT /api/products/:id/reviews
+ * @route   POST /api/products/:id/reviews
  * @access  Private
  * @author  Robin
  */
@@ -167,6 +179,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 export {
   getProducts,
   getProductById,
+  getTopProducts,
   deleteProduct,
   createProduct,
   updateProduct,
